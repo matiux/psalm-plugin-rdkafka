@@ -1,6 +1,6 @@
 <?php
 
-namespace Weirdan\PsalmPluginRdKafka;
+namespace Matiux\PsalmPluginRdKafka;
 
 use Generator;
 use RegexIterator;

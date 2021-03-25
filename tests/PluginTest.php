@@ -1,9 +1,9 @@
 <?php
 
-namespace Weirdan\PsalmPluginRdKafka\Tests;
+namespace Matiux\PsalmPluginRdKafka\Tests;
 
 use SimpleXMLElement;
-use Weirdan\PsalmPluginRdKafka\Plugin;
+use Matiux\PsalmPluginRdKafka\Plugin;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psalm\Plugin\RegistrationInterface;
@@ -11,13 +11,13 @@ use Psalm\Plugin\RegistrationInterface;
 class PluginTest extends TestCase
 {
     /**
-     * @var ObjectProphecy
+     * @var RegistrationInterface
      */
     private $registration;
 
     public function setUp(): void
     {
-        $this->registration = $this->prophesize(RegistrationInterface::class);
+        $this->registration = \Mockery::spy(RegistrationInterface::class);
     }
 
     /**
@@ -28,7 +28,8 @@ class PluginTest extends TestCase
     {
         $this->expectNotToPerformAssertions();
         $plugin = new Plugin();
-        $plugin($this->registration->reveal(), null);
+        $plugin($this->registration, null);
+        $this->registration->shouldHaveReceived('addStubFile')->with(\Mockery::type('string'));
     }
 
     /**
@@ -39,6 +40,7 @@ class PluginTest extends TestCase
     {
         $this->expectNotToPerformAssertions();
         $plugin = new Plugin();
-        $plugin($this->registration->reveal(), new SimpleXMLElement('<myConfig></myConfig>'));
+        $plugin($this->registration, new SimpleXMLElement('<myConfig></myConfig>'));
+        $this->registration->shouldHaveReceived('addStubFile')->with(\Mockery::type('string'));
     }
 }
