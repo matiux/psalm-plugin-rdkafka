@@ -13,8 +13,12 @@ use RecursiveDirectoryIterator;
 
 class Plugin implements PluginEntryPointInterface
 {
-    /** @return void */
-    public function __invoke(RegistrationInterface $psalm, ?SimpleXMLElement $config = null)
+    /**
+     * @param RegistrationInterface $psalm
+     * @param SimpleXMLElement|null $config
+     * @return void
+     */
+    public function __invoke(RegistrationInterface $psalm, ?SimpleXMLElement $config = null): void
     {
         foreach ($this->getStubFiles() as $file) {
             $psalm->addStubFile($file);

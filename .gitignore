@@ -1,3 +1,5 @@
-/vendor/
-composer.lock
 vendor
+.idea
+docker/docker-compose.override.yml
+/docker/data/shell_history/.x_history
+.phpunit.result.cache
